@@ -15,6 +15,7 @@
     <script src="js/operazioni.js"></script>
   </head>
   <body>
+    <!-- Banner -->
     <section class="hero is-small is-success">
       <div class="hero-body">
         <div class="columns is-mobile">
@@ -34,80 +35,91 @@
       </div>
     </section>
     <br />
+    <!-- Page -->
     <div class="tile is-ancestor">
-      <div class="tile is-parent is-11">
-        <div class="tile is-1"></div>
-        <div class="tile is-7">
-          <article class="tile is-child notification is-link is-light">
-            <span class="icon-text">
-              <span class="icon">
-                <i class="fas fa-home"></i>
-              </span>
-              <span><h1 class="subtitle">From</h1></span>
-            </span>
-            <div class="columns is-mobile">
-              <div class="column is-hlaf">
-                <label class="subtitle is-5">Latitude</label>
-                <span></span>
-                <input class="input" type="text" />
-              </div>
-              <div class="column">
-                <label class="subtitle is-5">Longitude</label>
-                <span></span>
-                <input class="input" type="text" />
-              </div>
-            </div>
-            <span class="icon-text">
-              <span class="icon">
-                <i class="fas fa-flag-checkered"></i>
-              </span>
-              <span><h1 class="subtitle">To</h1></span>
-            </span>
-            <div class="columns is-mobile">
-              <div class="column is-hlaf">
-                <label class="subtitle is-5">Latitude</label>
-                <span></span>
-                <input class="input" type="text" />
-              </div>
-              <div class="column">
-                <label class="subtitle is-5">Longitude</label>
-                <span></span>
-                <input class="input" type="text" />
-              </div>
-            </div>
-            <div class="columns is-mobile">
-              <div class="column is-4 is-offset-4">
-                <button
-                  class="button is-link is-fullwidth"
-                  type="button"
-                  onclick="printDistance()"
-                >
-                  ENTER
-                </button>
-                <br />
-                <p id="output">Distance:</p>
-              </div>
-            </div>
-          </article>
-        </div>
+      <div class="tile is-7">
         <div class="tile is-1"></div>
         <div class="tile">
-          <article class="tile is-child notification is-primary is-light">
-            Bike sharing is bike rental system.
-            <br />
-            <strong>How docking stations work</strong>
-            Bike share stations are easily one of the best real-time
-            applications of automation in this era of increasing road traffic.
-            These rental stations basically have a docking system with varying
-            sizes (generally between 10 to 100) and a convenient
-            no-human-interaction-required policy.
-            <br /><br />
-            Here's the crazy part: What happens if a certain number of people go
-            from place A to place B every day? Wouldn't that create a shortage
-            at place A and an influx at place B? For that, company employees
-            regularly move the bikes around the city.
-          </article>
+          <div class="tile is-parent is-vertical">
+            <!-- Input Information -->
+            <article class="tile is-child notification is-link is-light">
+              <!-- Start -->
+              <span class="icon-text">
+                <span class="icon">
+                  <i class="fas fa-arrow-circle-down"></i>
+                </span>
+                <span><h1 class="subtitle">From</h1></span>
+              </span>
+              <div class="columns is-mobile">
+                <div class="column is-hlaf">
+                  <label class="subtitle is-5">Latitude</label>
+                  <span></span>
+                  <input class="input" type="text" />
+                </div>
+                <div class="column">
+                  <label class="subtitle is-5">Longitude</label>
+                  <span></span>
+                  <input class="input" type="text" />
+                </div>
+              </div>
+              <!-- Destination -->
+              <span class="icon-text">
+                <span class="icon">
+                  <i class="fas fa-flag-checkered"></i>
+                </span>
+                <span><h1 class="subtitle">To</h1></span>
+              </span>
+              <div class="columns is-mobile">
+                <div class="column is-hlaf">
+                  <label class="subtitle is-5">Latitude</label>
+                  <span></span>
+                  <input class="input" type="text" />
+                </div>
+                <div class="column">
+                  <label class="subtitle is-5">Longitude</label>
+                  <span></span>
+                  <input class="input" type="text" />
+                </div>
+              </div>
+              <!-- DO the Maths -->
+              <div class="columns is-mobile">
+                <div class="column is-4 is-offset-4">
+                  <button
+                    class="button is-link is-fullwidth"
+                    type="button"
+                    onclick="printDistance()"
+                  >
+                    ENTER
+                  </button>
+                  <br />
+                  <p id="output">Distance:</p>
+                </div>
+              </div>
+            </article>
+            <!--TODO Map -->
+            <article class="tile is-child notification is-warning is-light">
+              <p class="subtitle">map.png</p>
+            </article>
+          </div>
         </div>
+      </div>
+      <div class="tile is-parent">
+        <!-- Crazy block of text -->
+        <article class="tile is-child notification is-primary is-light">
+          Bike sharing is bike rental system.
+          <br /><br />
+          <strong>How docking stations work</strong>
+          Bike share stations are easily one of the best real-time applications
+          of automation in this era of increasing road traffic. These rental
+          stations basically have a docking system with varying sizes (generally
+          between 10 to 100) and a convenient no-human-interaction-required
+          policy.
+          <br /><br />
+          Here's the crazy part: What happens if a certain number of people go
+          from place A to place B every day? Wouldn't that create a shortage at
+          place A and an influx at place B? For that, company employees
+          regularly move the bikes around the city.
+        </article>
       </div>
     </div>
   </body>
