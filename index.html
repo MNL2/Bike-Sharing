@@ -1,24 +1,102 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Bike Sharing</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
     <script src="js/operazioni.js"></script>
-</head>
-<body>
+  </head>
+  <body>
     <section class="hero is-small is-success">
-        <div class="hero-body">
-            <div class="columns">
-                <div class="column">
-                    <h1 class="title is-2">
-                        &nbsp; BIKE SHARING
-                    </h1>
-                    <p class="subtitle">New York</p>
-                </div>
-            </div>
-        </div>  
+      <div class="hero-body">
+        <div class="columns is-mobile">
+          <div class="column">
+            <h1 class="title is-3">&nbsp; BIKE SHARING</h1>
+            <span class="icon-text">
+              <span class="icon">
+                <i class="fas fa-location-arrow"></i>
+              </span>
+              <span>
+                <p class="subtitle">New York</p>
+              </span>
+            </span>
+          </div>
+          <div><img src="img/bike.png" alt="logo" width="100" /></div>
+        </div>
+      </div>
     </section>
-</body>
+    <br />
+    <div class="tile is-ancestor">
+      <div class="tile is-parent is-11">
+        <div class="tile is-1"></div>
+        <div class="tile is-7">
+          <article class="tile is-child notification is-link is-light">
+            <span class="icon-text">
+              <span class="icon">
+                <i class="fas fa-home"></i>
+              </span>
+              <span><h1 class="subtitle">From</h1></span>
+            </span>
+            <div class="columns is-mobile">
+              <div class="column is-hlaf">
+                <label class="subtitle is-5">Latitude</label>
+                <span></span>
+                <input class="input" type="text" />
+              </div>
+              <div class="column">
+                <label class="subtitle is-5">Longitude</label>
+                <span></span>
+                <input class="input" type="text" />
+              </div>
+            </div>
+            <span class="icon-text">
+              <span class="icon">
+                <i class="fas fa-flag-checkered"></i>
+              </span>
+              <span><h1 class="subtitle">To</h1></span>
+            </span>
+            <div class="columns is-mobile">
+              <div class="column is-hlaf">
+                <label class="subtitle is-5">Latitude</label>
+                <span></span>
+                <input class="input" type="text" />
+              </div>
+              <div class="column">
+                <label class="subtitle is-5">Longitude</label>
+                <span></span>
+                <input class="input" type="text" />
+              </div>
+            </div>
+            <div class="columns is-mobile">
+              <div class="column is-4 is-offset-4">
+                <button
+                  class="button is-link is-fullwidth"
+                  type="button"
+                  id="enter"
+                  onclick="printDistance()"
+                >
+                  ENTER
+                </button>
+                <label id="distance"></label>
+              </div>
+            </div>
+          </article>
+        </div>
+        <div class="tile is-1"></div>
+        <div class="tile">
+          <article class="tile is-child notification is-primary is-light">
+            Bike sharing is...
+          </article>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>
