@@ -18,6 +18,10 @@ function deg2rad(deg) {
 }
 
 function printDistance(){
-    var d = getDistanceFromLatLonInKm(1,1,1,1);
+    var lat1 = document.getElementById('lat1').value;
+    var lon1 = document.getElementById('lon1').value;
+    var lat2 = document.getElementById('lat2').value;
+    var lon2 = document.getElementById('lon2').value;
+    var d = getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2);
     document.getElementById('output').innerHTML = "Distance: " + d + "km";
 }
