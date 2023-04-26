@@ -1,12 +1,19 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Bike Sharing - New York</title>
-        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
-            integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
-        <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
-            integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
-            <meta charset="utf-8" />
+  <head>
+    <title>Bike Sharing - New York</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+      integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
+      crossorigin=""
+    />
+    <script
+      src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+      integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
+      crossorigin=""
+    ></script>
+    <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Bike Sharing</title>
     <link
@@ -17,15 +24,12 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
     />
-    <link
-    rel="stylesheet"
-    href="css/style.css"
-  />
+    <link rel="stylesheet" href="css/style.css" />
     <script src="js/operazioni.js"></script>
-    </head>
-    <body>
-        
-         <!-- Banner -->
+    <script src="js/map.js"></script>
+  </head>
+  <body onload="loadMap()">
+    <!-- Banner -->
     <section class="hero is-small is-success">
       <div class="hero-body">
         <div class="columns is-mobile">
@@ -45,7 +49,7 @@
       </div>
     </section>
     <br />
-    <!-- Page --> 
+    <!-- Page -->
     <div class="tile is-ancestor">
       <div class="tile is-7">
         <div class="tile is-1"></div>
@@ -64,12 +68,12 @@
                 <div class="column is-hlaf">
                   <label class="subtitle is-5">Latitude</label>
                   <span></span>
-                  <input class="input" type="text" id="lat1"/>
+                  <input class="input" type="text" id="lat1" />
                 </div>
                 <div class="column">
                   <label class="subtitle is-5">Longitude</label>
                   <span></span>
-                  <input class="input" type="text" id="lon1"/>
+                  <input class="input" type="text" id="lon1" />
                 </div>
               </div>
               <!-- Destination -->
@@ -83,12 +87,12 @@
                 <div class="column is-hlaf">
                   <label class="subtitle is-5">Latitude</label>
                   <span></span>
-                  <input class="input" type="text" id="lat2"/>
+                  <input class="input" type="text" id="lat2" />
                 </div>
                 <div class="column">
                   <label class="subtitle is-5">Longitude</label>
                   <span></span>
-                  <input class="input" type="text" id="lon2"/>
+                  <input class="input" type="text" id="lon2" />
                 </div>
               </div>
               <!-- DO the Maths -->
@@ -106,43 +110,10 @@
                 </div>
               </div>
             </article>
-            <!--TODO Map -->
-            <article class="tile is-child notification is-warning is-light">
+            <!-- Map -->
+            <article class="tile is-child box" style="background-color: #fffaeb;">
               <div class="iframe-wrapper">
-                <div id="map" style="height: 500px;"></div>
-        <script>
-            var map = L.map('map').setView([40.7128, -74.0060], 13);
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
-            maxZoom: 18
-            }).addTo(map);
-            
-            fetch("citybike.json")
-                .then(response => response.json())
-                .then(data => {
-                    data.stationBeanList.forEach(station => {
-                        const marker = L.marker([station.latitude, station.longitude]).addTo(map);
-                        marker.bindPopup(station.stationName);
-                    });
-                })
-                .catch(error => console.error(error));
-
-                navigator.geolocation.getCurrentPosition(position => {
-    const lat = position.coords.latitude;
-    const lon = position.coords.longitude;
-    const userMarker = L.marker([lat, lon]).addTo(map);
-    userMarker.bindPopup('Posizione dell\'utente');
-    
-    if (data) {
-        data.stationBeanList.forEach(station => {
-            const marker = L.marker([station.latitude, station.longitude]).addTo(map);
-            marker.bindPopup(station.stationName);
-        });
-    }
-});
-
-        </script>
-                
+                <div id="map" style="height: 500px"></div>
               </div>
             </article>
           </div>
@@ -167,5 +138,5 @@
         </article>
       </div>
     </div>
-    </body>
+  </body>
 </html>

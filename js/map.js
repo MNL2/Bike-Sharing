@@ -1,19 +1,37 @@
-var map = L.map('map').setView([40.7128, -74.0060], 13);
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  attribution: '&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
-  maxZoom: 18
-}).addTo(map);
+function loadMap() {
+  var map = L.map("map").setView([40.7128, -74.006], 14);
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    attribution:
+      '&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
+    maxZoom: 18,
+    minZoom: 12,
+  }).addTo(map);
 
+  fetch("citybike.json")
+    .then((response) => response.json())
+    .then((data) => {
+      data.stationBeanList.forEach((station) => {
+        const marker = L.marker([station.latitude, station.longitude]).addTo(
+          map
+        );
+        marker.bindPopup(station.stationName);
+      });
+    })
+    .catch((error) => console.error(error));
 
-  fetch('data.json')
-  .then(function(response) {
-    return response.json();
-  })
-  .then(function(data) {
-    var bikes = data.bikes;
-    for (var i = 0; i < bikes.length; i++) {
-      var bike = bikes[i];
-      var marker = L.marker([bike.latitude, bike.longitude]).addTo(map);
-      marker.bindPopup('<strong>Bike ID:</strong> ' + bike.id);
+  navigator.geolocation.getCurrentPosition((position) => {
+    const lat = position.coords.latitude;
+    const lon = position.coords.longitude;
+    const userMarker = L.marker([lat, lon]).addTo(map);
+    userMarker.bindPopup("Posizione dell'utente");
+
+    if (data) {
+      data.stationBeanList.forEach((station) => {
+        const marker = L.marker([station.latitude, station.longitude]).addTo(
+          map
+        );
+        marker.bindPopup(station.stationName);
+      });
     }
   });
+}
