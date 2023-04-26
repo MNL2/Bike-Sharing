@@ -1,3 +1,4 @@
+
 function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
   var R = 6371; // Radius of the earth in km
   var dLat = deg2rad(lat2 - lat1); // deg2rad below
@@ -24,4 +25,7 @@ function printDistance(){
     var lon2 = document.getElementById('lon2').value;
     var d = getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2);
     document.getElementById('output').innerHTML = "Distance: " + d + "km";
+}
+
+function compareToJSON(){
 }
