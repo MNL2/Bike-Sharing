@@ -1,133 +1,45 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Bike Sharing</title>
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
-    />
-    <link
-    rel="stylesheet"
-    href="css/style.css"
-  />
-    <script src="js/operazioni.js"></script>
-  </head>
-  <body>
-    <!-- Banner -->
-    <section class="hero is-small is-success">
-      <div class="hero-body">
-        <div class="columns is-mobile">
-          <div class="column">
-            <h1 class="title is-3">&nbsp; BIKE SHARING</h1>
-            <span class="icon-text">
-              <span class="icon">
-                <i class="fas fa-location-arrow"></i>
-              </span>
-              <span>
-                <p class="subtitle">New York</p>
-              </span>
-            </span>
-          </div>
-          <div><img src="img/bike.png" alt="logo" width="100" /></div>
-        </div>
-      </div>
-    </section>
-    <br />
-    <!-- Page -->
-    <div class="tile is-ancestor">
-      <div class="tile is-7">
-        <div class="tile is-1"></div>
-        <div class="tile">
-          <div class="tile is-parent is-vertical">
-            <!-- Input Information -->
-            <article class="tile is-child notification is-link is-light">
-              <!-- Start -->
-              <span class="icon-text">
-                <span class="icon">
-                  <i class="fas fa-arrow-circle-down"></i>
-                </span>
-                <span><h1 class="subtitle">From</h1></span>
-              </span>
-              <div class="columns is-mobile">
-                <div class="column is-hlaf">
-                  <label class="subtitle is-5">Latitude</label>
-                  <span></span>
-                  <input class="input" type="text" />
-                </div>
-                <div class="column">
-                  <label class="subtitle is-5">Longitude</label>
-                  <span></span>
-                  <input class="input" type="text" />
-                </div>
-              </div>
-              <!-- Destination -->
-              <span class="icon-text">
-                <span class="icon">
-                  <i class="fas fa-flag-checkered"></i>
-                </span>
-                <span><h1 class="subtitle">To</h1></span>
-              </span>
-              <div class="columns is-mobile">
-                <div class="column is-hlaf">
-                  <label class="subtitle is-5">Latitude</label>
-                  <span></span>
-                  <input class="input" type="text" />
-                </div>
-                <div class="column">
-                  <label class="subtitle is-5">Longitude</label>
-                  <span></span>
-                  <input class="input" type="text" />
-                </div>
-              </div>
-              <!-- DO the Maths -->
-              <div class="columns is-mobile">
-                <div class="column is-4 is-offset-4">
-                  <button
-                    class="button is-link is-fullwidth"
-                    type="button"
-                    onclick="printDistance()"
-                  >
-                    ENTER
-                  </button>
-                  <br />
-                  <p id="output">Distance:</p>
-                </div>
-              </div>
-            </article>
-            <!--TODO Map -->
-            <article class="tile is-child notification is-warning is-light">
-              <div class="iframe-wrapper">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d387194.06229579414!2d-74.30932913378582!3d40.69701928228265!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew%20York%2C%20Stati%20Uniti!5e0!3m2!1sit!2sit!4v1682185708819!5m2!1sit!2sit" width="400" height="300" style="border:0; text-align: center;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                <!--<p class="subtitle">map.png</p>-->
-              </div>
-            </article>
-          </div>
-        </div>
-      </div>
-      <div class="tile is-parent">
-        <!-- Crazy block of text -->
-        <article class="tile is-child notification is-primary is-light">
-          Bike sharing is bike rental system.
-          <br /><br />
-          <strong>How docking stations work</strong>
-          Bike share stations are easily one of the best real-time applications
-          of automation in this era of increasing road traffic. These rental
-          stations basically have a docking system with varying sizes (generally
-          between 10 to 100) and a convenient no-human-interaction-required
-          policy.
-          <br /><br />
-          Here's the crazy part: What happens if a certain number of people go
-          from place A to place B every day? Wouldn't that create a shortage at
-          place A and an influx at place B? For that, company employees
-          regularly move the bikes around the city.
-        </article>
-      </div>
-    </div>
-  </body>
+    <head>
+        <title>Bike Sharing - New York</title>
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+            integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
+        <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+            integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
+    </head>
+    <body>
+        <div id="map" style="height: 500px;"></div>
+        <script>
+            var map = L.map('map').setView([40.7128, -74.0060], 13);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
+            maxZoom: 18
+            }).addTo(map);
+            
+            fetch("citybike.json")
+                .then(response => response.json())
+                .then(data => {
+                    data.stationBeanList.forEach(station => {
+                        const marker = L.marker([station.latitude, station.longitude]).addTo(map);
+                        marker.bindPopup(station.stationName);
+                    });
+                })
+                .catch(error => console.error(error));
+
+                navigator.geolocation.getCurrentPosition(position => {
+    const lat = position.coords.latitude;
+    const lon = position.coords.longitude;
+    const userMarker = L.marker([lat, lon]).addTo(map);
+    userMarker.bindPopup('Posizione dell\'utente');
+    
+    if (data) {
+        data.stationBeanList.forEach(station => {
+            const marker = L.marker([station.latitude, station.longitude]).addTo(map);
+            marker.bindPopup(station.stationName);
+        });
+    }
+});
+
+        </script>
+    </body>
 </html>
