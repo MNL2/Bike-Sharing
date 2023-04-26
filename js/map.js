@@ -34,4 +34,21 @@ function loadMap() {
       });
     }
   });
+
+  //NOVITA
+  var marker;
+
+  function onMapClick(e) {
+    if (marker) {
+      map.removeLayer(marker);
+    }
+    marker = L.marker(e.latlng).addTo(map);
+    document.getElementById("lat1").value = e.latlng.lat;
+    document.getElementById("lon1").value = e.latlng.lng;
+  }
+  
+  map.on('click', onMapClick);
+
 }
+
+
