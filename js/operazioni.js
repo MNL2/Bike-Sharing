@@ -26,6 +26,3 @@ function printDistance(){
     var d = getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2);
     document.getElementById('output').innerHTML = "Distance: " + d + "km";
 }
-
-function compareToJSON(){
-}
