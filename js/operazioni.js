@@ -23,9 +23,8 @@ function printDistance() {
   var lat2 = document.getElementById("lat2").value;
   var lon2 = document.getElementById("lon2").value;
   var d = getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2);
-  document.getElementById("output").innerHTML = "Distance: " + d + "km";
-  nearStation(lat1,lon1, true);
-  
+  document.getElementById("output").innerHTML = "Distance: " + formatDistance(d);
+  nearStation(lat1, lon1, true);
 }
 
 function nearStation(lat, lon, isStart) {
@@ -37,7 +36,6 @@ function nearStation(lat, lon, isStart) {
     .then((data) => {
       data.stationBeanList.forEach((station) => {
         if (station.statusValue == "In Service") {
-          document.getElementById("prova").innerHTML += " A";
           if (
             getDistanceFromLatLonInKm(
               lat,
@@ -46,7 +44,6 @@ function nearStation(lat, lon, isStart) {
               station.longitude
             ) < distance
           ) {
-            document.getElementById("prova").innerHTML += "B-";
             if (isStart == true && station.availableBikes > 0) {
               distance = getDistanceFromLatLonInKm(
                 lat,
@@ -55,9 +52,7 @@ function nearStation(lat, lon, isStart) {
                 station.longitude
               );
               dock = station.stationName;
-              document.getElementById("prova").innerHTML += dock + " " + distance;
-            }
-            else if (isStart == false && station.availableDocks > 0) {
+            } else if (isStart == false && station.availableDocks > 0) {
               distance = getDistanceFromLatLonInKm(
                 lat,
                 lon,
@@ -65,13 +60,24 @@ function nearStation(lat, lon, isStart) {
                 station.longitude
               );
               dock = station.stationName;
-              document.getElementById("prova").innerHTML += dock + " ";
             }
           }
         }
       });
+      document.getElementById("prova").innerHTML =
+        "Nearest station is: " + dock + " " + formatDistance(distance);
     })
     .catch((error) => console.error(error));
+}
 
-  document.getElementById("prova").innerHTML += distance + " " + dock;
+function formatDistance(num) {
+  if (num >= 1) {
+    num = num.toFixed(2);
+    return num + " km";
+  }
+  else{
+    num = num*1000;
+    num = num.toFixed(0);
+    return num + " m";
+  }
 }
