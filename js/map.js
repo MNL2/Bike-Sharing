@@ -10,10 +10,15 @@ function loadMap() {
   fetch("citybike.json")
     .then((response) => response.json())
     .then((data) => {
+      const customIcon = L.icon({
+        iconUrl: "img/coso.png",
+
+        iconSize: [55, 55],
+
+        iconAnchor: [29, 49],
+      });
       data.stationBeanList.forEach((station) => {
-        const marker = L.marker([station.latitude, station.longitude]).addTo(
-          map
-        );
+        const marker = L.marker([station.latitude, station.longitude], {icon: customIcon}).addTo(map);
         marker.bindPopup(station.stationName);
       });
     })
@@ -45,9 +50,6 @@ function loadMap() {
     document.getElementById("lat1").value = e.latlng.lat;
     document.getElementById("lon1").value = e.latlng.lng;
   }
-  
-  map.on('click', onMapClick);
 
+  map.on("click", onMapClick);
 }
-
-
