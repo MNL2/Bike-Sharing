@@ -1,5 +1,4 @@
-
-function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
+function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
   var R = 6371; // Radius of the earth in km
   var dLat = deg2rad(lat2 - lat1); // deg2rad below
   var dLon = deg2rad(lon2 - lon1);
@@ -18,11 +17,61 @@ function deg2rad(deg) {
   return deg * (Math.PI / 180);
 }
 
-function printDistance(){
-    var lat1 = document.getElementById('lat1').value;
-    var lon1 = document.getElementById('lon1').value;
-    var lat2 = document.getElementById('lat2').value;
-    var lon2 = document.getElementById('lon2').value;
-    var d = getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2);
-    document.getElementById('output').innerHTML = "Distance: " + d + "km";
+function printDistance() {
+  var lat1 = document.getElementById("lat1").value;
+  var lon1 = document.getElementById("lon1").value;
+  var lat2 = document.getElementById("lat2").value;
+  var lon2 = document.getElementById("lon2").value;
+  var d = getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2);
+  document.getElementById("output").innerHTML = "Distance: " + d + "km";
+  nearStation(lat1,lon1, true);
+  
+}
+
+function nearStation(lat, lon, isStart) {
+  let dock = "";
+  let distance = Infinity;
+
+  fetch("citybike.json")
+    .then((response) => response.json())
+    .then((data) => {
+      data.stationBeanList.forEach((station) => {
+        if (station.statusValue == "In Service") {
+          document.getElementById("prova").innerHTML += " A";
+          if (
+            getDistanceFromLatLonInKm(
+              lat,
+              lon,
+              station.latitude,
+              station.longitude
+            ) < distance
+          ) {
+            document.getElementById("prova").innerHTML += "B-";
+            if (isStart == true && station.availableBikes > 0) {
+              distance = getDistanceFromLatLonInKm(
+                lat,
+                lon,
+                station.latitude,
+                station.longitude
+              );
+              dock = station.stationName;
+              document.getElementById("prova").innerHTML += dock + " " + distance;
+            }
+            else if (isStart == false && station.availableDocks > 0) {
+              distance = getDistanceFromLatLonInKm(
+                lat,
+                lon,
+                station.latitude,
+                station.longitude
+              );
+              dock = station.stationName;
+              document.getElementById("prova").innerHTML += dock + " ";
+            }
+          }
+        }
+      });
+    })
+    .catch((error) => console.error(error));
+
+  document.getElementById("prova").innerHTML += distance + " " + dock;
 }

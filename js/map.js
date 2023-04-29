@@ -35,7 +35,6 @@ function loadMap() {
     }
   });
 
-  //NOVITA
   var marker;
 
   function onMapClick(e) {
