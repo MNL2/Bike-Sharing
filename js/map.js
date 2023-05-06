@@ -11,14 +11,16 @@ function loadMap() {
     .then((response) => response.json())
     .then((data) => {
       const customIcon = L.icon({
-        iconUrl: "img/coso.png",
+        iconUrl: "img/pos.png",
 
         iconSize: [55, 55],
 
         iconAnchor: [29, 49],
       });
       data.stationBeanList.forEach((station) => {
-        const marker = L.marker([station.latitude, station.longitude], {icon: customIcon}).addTo(map);
+        const marker = L.marker([station.latitude, station.longitude], {
+          icon: customIcon,
+        }).addTo(map);
         marker.bindPopup(station.stationName);
       });
     })
@@ -46,7 +48,14 @@ function loadMap() {
     if (marker) {
       map.removeLayer(marker);
     }
-    marker = L.marker(e.latlng).addTo(map);
+    const userIcon = L.icon({
+      iconUrl: "img/userpos.png",
+
+      iconSize: [55, 55],
+
+      iconAnchor: [29, 49],
+    });
+    marker = L.marker(e.latlng, { icon: userIcon }).addTo(map);
     document.getElementById("lat1").value = e.latlng.lat;
     document.getElementById("lon1").value = e.latlng.lng;
   }
