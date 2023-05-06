@@ -23,60 +23,71 @@ function printDistance() {
   var lat2 = document.getElementById("lat2").value;
   var lon2 = document.getElementById("lon2").value;
   var d = getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2);
-  document.getElementById("output").innerHTML = "Distance: " + formatDistance(d);
-  nearStation(lat1, lon1, true);
+  nearStation(lat1, lon1, true)
+    .then((txt) => {
+      document.getElementById("output").innerHTML = txt;
+    })
+    .catch((error) => {
+      // Handle any errors here
+      console.error(error);
+    });
 }
 
 function nearStation(lat, lon, isStart) {
-  let dock = "";
-  let distance = Infinity;
+  return new Promise((resolve, reject) => {
+    let dock = "";
+    let distance = Infinity;
 
-  fetch("citybike.json")
-    .then((response) => response.json())
-    .then((data) => {
-      data.stationBeanList.forEach((station) => {
-        if (station.statusValue == "In Service") {
-          if (
-            getDistanceFromLatLonInKm(
-              lat,
-              lon,
-              station.latitude,
-              station.longitude
-            ) < distance
-          ) {
-            if (isStart == true && station.availableBikes > 0) {
-              distance = getDistanceFromLatLonInKm(
+    fetch("citybike.json")
+      .then((response) => response.json())
+      .then((data) => {
+        data.stationBeanList.forEach((station) => {
+          if (station.statusValue == "In Service") {
+            if (
+              getDistanceFromLatLonInKm(
                 lat,
                 lon,
                 station.latitude,
                 station.longitude
-              );
-              dock = station.stationName;
-            } else if (isStart == false && station.availableDocks > 0) {
-              distance = getDistanceFromLatLonInKm(
-                lat,
-                lon,
-                station.latitude,
-                station.longitude
-              );
-              dock = station.stationName;
+              ) < distance
+            ) {
+              if (isStart == true && station.availableBikes > 0) {
+                distance = getDistanceFromLatLonInKm(
+                  lat,
+                  lon,
+                  station.latitude,
+                  station.longitude
+                );
+                dock = station.stationName;
+              } else if (isStart == false && station.availableDocks > 0) {
+                distance = getDistanceFromLatLonInKm(
+                  lat,
+                  lon,
+                  station.latitude,
+                  station.longitude
+                );
+                dock = station.stationName;
+              }
             }
           }
-        }
+        });
+        let txt =
+          "Nearest station is: " + dock + " " + formatDistance(distance);
+        resolve(txt);
+      })
+      .catch((error) => {
+        console.error(error);
+        reject(error);
       });
-      document.getElementById("prova").innerHTML =
-        "Nearest station is: " + dock + " " + formatDistance(distance);
-    })
-    .catch((error) => console.error(error));
+  });
 }
 
 function formatDistance(num) {
   if (num >= 1) {
     num = num.toFixed(2);
     return num + " km";
-  }
-  else{
-    num = num*1000;
+  } else {
+    num = num * 1000;
     num = num.toFixed(0);
     return num + " m";
   }
