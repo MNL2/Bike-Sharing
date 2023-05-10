@@ -17,7 +17,7 @@ function deg2rad(deg) {
   return deg * (Math.PI / 180);
 }
 
-function printDistance() {
+/*function printDistance() {
   var lat1 = document.getElementById("lat1").value;
   var lon1 = document.getElementById("lon1").value;
   var lat2 = document.getElementById("lat2").value;
@@ -31,7 +31,7 @@ function printDistance() {
       // Handle any errors here
       console.error(error);
     });
-}
+}*/
 
 function nearStation(lat, lon, isStart) {
   return new Promise((resolve, reject) => {
@@ -150,3 +150,29 @@ function loadMap() {
   map.on("click", onMapClick);
 }
 
+function printDistance() {
+  var startLat = document.getElementById("lat1").value;
+  var startLon = document.getElementById("lon1").value;
+  var targetLat = document.getElementById("lat2").value;
+  var targetLon = document.getElementById("lon2").value;
+
+  var startStationPromise = nearStation(startLat, startLon, true);
+  var targetStationPromise = nearStation(targetLat, targetLon, false);
+
+  Promise.all([startStationPromise, targetStationPromise])
+    .then((results) => {
+      var startStation = results[0];
+      var targetStation = results[1];
+
+      document.getElementById("output").innerHTML =
+        "Nearest station to your current location: " +
+        startStation +
+        "<br>" +
+        "Nearest station to your target location: " +
+        targetStation;
+    })
+    .catch((error) => {
+      // Gestisci eventuali errori qui
+      console.error(error);
+    });
+}
