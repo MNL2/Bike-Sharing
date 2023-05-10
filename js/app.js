@@ -1,3 +1,4 @@
+var geocoder;
 function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
   var R = 6371; // Radius of the earth in km
   var dLat = deg2rad(lat2 - lat1); // deg2rad below
@@ -100,7 +101,12 @@ function loadMap() {
     maxZoom: 18,
     minZoom: 12,
   }).addTo(map);
-
+  var geocoder = L.Control.geocoder({
+    defaultMarkGeocode: false,
+  }).on("markgeocode", function (e) {
+    var latlng = e.geocode.center;
+    L.marker(latlng).addTo(map);
+  }).addTo(map);
   fetch("citybike.json")
     .then((response) => response.json())
     .then((data) => {
