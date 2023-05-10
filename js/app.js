@@ -71,8 +71,7 @@ function nearStation(lat, lon, isStart) {
             }
           }
         });
-        let txt =
-          "Nearest station is: " + dock + " " + formatDistance(distance);
+        let txt = dock + " " + formatDistance(distance);
         resolve(txt);
       })
       .catch((error) => {
@@ -126,10 +125,10 @@ function loadMap() {
     const lon = position.coords.longitude;
     const userMarker = L.marker([lat, lon]).addTo(map);
     userMarker.bindPopup("Posizione dell'utente");
-
   });
 
   var marker;
+  var marker2;
 
   function onMapClick(e) {
     if (marker) {
