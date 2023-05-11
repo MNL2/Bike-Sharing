@@ -26,15 +26,15 @@
     />
 
     <link
-    rel="stylesheet"
-    href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
-  />
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+    />
 
-  <!-- Stili CSS per Leaflet Control Geocoder -->
-  <link
-    rel="stylesheet"
-    href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css"
-  />
+    <!-- Stili CSS per Leaflet Control Geocoder -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css"
+    />
     <link rel="stylesheet" href="css/style.css" />
 
     <script
@@ -70,7 +70,7 @@
     <br />
     <!-- Page -->
     <div class="tile is-ancestor">
-      <div class="tile is-7" style="padding-left: 12px; padding-right: 12px;">
+      <div class="tile is-7" style="padding-left: 12px; padding-right: 12px">
         <div class="tile">
           <div class="tile is-parent is-vertical">
             <!-- Input Information -->
@@ -125,7 +125,6 @@
                   </button>
                 </div>
               </div>
-            
             </article>
             <!-- Map -->
             <article
@@ -139,13 +138,22 @@
           </div>
         </div>
       </div>
-      
-      <div class="tile is-parent is-vertical" style="padding-left: 24px; padding-right: 24px;">
-        <article id="output" class="tile is-child notification is-link is-light">
+
+      <div
+        class="tile is-parent is-vertical"
+        style="padding-left: 24px; padding-right: 24px"
+      >
+        <article
+          id="output"
+          class="tile is-child notification is-link is-light"
+        >
           Nearest station
         </article>
         <!-- Crazy block of text -->
-        <article class="tile is-child notification is-primary is-light"  onselectstart='return false'>
+        <article
+          class="tile is-child notification is-primary is-light"
+          onselectstart="return false"
+        >
           Bike sharing is bike rental system.
           <br /><br />
           <strong>How docking stations work</strong>
@@ -159,6 +167,14 @@
           from place A to place B every day? Wouldn't that create a shortage at
           place A and an influx at place B? For that, company employees
           regularly move the bikes around the city.
+          <br /><br />
+          <button class="button is-success is-pulled-right" type="button" onclick="goToTop()" style="border-radius: 50%;">
+            <span class="icon-text">
+              <span class="icon">
+                <i class="fas fa-arrow-up"></i>
+              </span>
+            </span>
+          </button>
         </article>
       </div>
     </div>
@@ -166,8 +182,7 @@
       <img
         src="img/made-with-bulma.png"
         alt="Made With Bulma"
-        width="128"
-        height="24"
+        width="142"
       />
     </div>
   </body>

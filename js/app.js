@@ -181,3 +181,10 @@ function printDistance() {
       console.error(error);
     });
 }
+
+function goToTop(){
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+}
