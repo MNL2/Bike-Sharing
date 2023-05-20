@@ -18,22 +18,6 @@ function deg2rad(deg) {
   return deg * (Math.PI / 180);
 }
 
-/*function printDistance() {
-  var lat1 = document.getElementById("lat1").value;
-  var lon1 = document.getElementById("lon1").value;
-  var lat2 = document.getElementById("lat2").value;
-  var lon2 = document.getElementById("lon2").value;
-  var d = getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2);
-  nearStation(lat1, lon1, true)
-    .then((txt) => {
-      document.getElementById("output").innerHTML = txt;
-    })
-    .catch((error) => {
-      // Handle any errors here
-      console.error(error);
-    });
-}*/
-
 function nearStation(lat, lon, isStart) {
   return new Promise((resolve, reject) => {
     let dock = "";
@@ -93,6 +77,8 @@ function formatDistance(num) {
   }
 }
 
+var map;
+
 function loadMap() {
   var map = L.map("map").setView([40.7128, -74.006], 14);
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
@@ -101,12 +87,12 @@ function loadMap() {
     maxZoom: 18,
     minZoom: 12,
   }).addTo(map);
-  var geocoder = L.Control.geocoder({
+  /*var geocoder = L.Control.geocoder({
     defaultMarkGeocode: false,
   }).on("markgeocode", function (e) {
     var latlng = e.geocode.center;
     L.marker(latlng).addTo(map);
-  }).addTo(map);
+  }).addTo(map);*/
   fetch("citybike.json")
     .then((response) => response.json())
     .then((data) => {
@@ -134,7 +120,6 @@ function loadMap() {
   });
 
   var marker;
-  var marker2;
 
   function onMapClick(e) {
     if (marker) {
@@ -170,10 +155,10 @@ function printDistance() {
       var targetStation = results[1];
 
       document.getElementById("output").innerHTML =
-        "Nearest station to your current location: " +
+        "Nearest station to your current location: <br>" +
         startStation +
-        "<br>" +
-        "Nearest station to your target location: " +
+        "<br><br>" +
+        "Nearest station to your target location: <br>" +
         targetStation;
     })
     .catch((error) => {

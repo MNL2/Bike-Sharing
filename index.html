@@ -15,7 +15,6 @@
       integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
       crossorigin=""
     />
-
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
@@ -24,12 +23,10 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
     />
-
     <link
       rel="stylesheet"
       href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
     />
-
     <!-- Stili CSS per Leaflet Control Geocoder -->
     <link
       rel="stylesheet"
@@ -44,7 +41,6 @@
     ></script>
     <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
     <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
-
     <script src="js/app.js"></script>
   </head>
   <body onload="loadMap()">
@@ -138,7 +134,7 @@
           </div>
         </div>
       </div>
-
+      <!-- Output -->
       <div
         class="tile is-parent is-vertical"
         style="padding-left: 24px; padding-right: 24px"
@@ -156,7 +152,7 @@
         >
           Bike sharing is bike rental system.
           <br /><br />
-          <strong>How docking stations work</strong>
+          <strong>How docking stations work</strong><br>
           Bike share stations are easily one of the best real-time applications
           of automation in this era of increasing road traffic. These rental
           stations basically have a docking system with varying sizes (generally
@@ -168,7 +164,12 @@
           place A and an influx at place B? For that, company employees
           regularly move the bikes around the city.
           <br /><br />
-          <button class="button is-success is-pulled-right" type="button" onclick="goToTop()" style="border-radius: 50%;">
+          <button
+            class="button is-success is-pulled-right"
+            type="button"
+            onclick="goToTop()"
+            style="border-radius: 50%"
+          >
             <span class="icon-text">
               <span class="icon">
                 <i class="fas fa-arrow-up"></i>
@@ -179,11 +180,7 @@
       </div>
     </div>
     <div class="is-pulled-right">
-      <img
-        src="img/made-with-bulma.png"
-        alt="Made With Bulma"
-        width="142"
-      />
+      <img src="img/made-with-bulma.png" alt="Made With Bulma" width="142" />
     </div>
   </body>
 </html>
