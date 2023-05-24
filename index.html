@@ -1,191 +1,275 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <title>Bike Sharing</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1"
+    />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+    <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
+  </head>
 
-<head>
-  <title>Bike Sharing</title>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-  <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" />
-  <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
-  <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css" />
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-</head>
+  <body>
+    <section class="hero is-small is-success">
+      <div class="hero-body">
+        <nav class="level is-mobile">
+          <div class="level-left">
+            <div class="level-item">
+              <div class="columns">
+                <h1 class="title is-3">&nbsp; BIKE SHARING</h1>
+                <span class="icon-text"
+                  >&nbsp;
+                  <span class="icon">
+                    <i class="fas fa-location-arrow"></i>
+                  </span>
+                  <span>
+                    <p class="subtitle">New York</p>
+                  </span>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="level-right">
+            <div class="level-item">
+              <img src="img/bike.png" alt="logo" width="100" />
+            </div>
+          </div>
+        </nav>
+      </div>
+    </section>
 
-<body> 
-  <!--
-  <section class="hero is-small is-success">
-    <div class="hero-body">
-      <div class="columns is-mobile">
-        <div class="column">
-          <h1 class="title is-3">&nbsp; BIKE SHARING</h1>
-          <span class="icon-text">
-            <span class="icon">
-              <i class="fas fa-location-arrow"></i>
-            </span>
-            <span>
-              <p class="subtitle">New York</p>
-            </span>
-          </span>
+    <section class="section">
+      <div id="map" style="height: 400px"></div>
+    </section>
+
+    <div class="column is-6 is-offset-3">
+      <div class="field is-horizontal">
+        <div class="field-body">
+          <div class="field">
+            <div class="control has-icons-left has-icons-right">
+              <input
+                class="input is-info"
+                id="startAddressInput"
+                required
+                type="text"
+                placeholder="Enter start address"
+              />
+              <span class="icon is-small is-left">
+                <i class="fas fa-circle-notch"></i>
+              </span>
+            </div>
+          </div>
         </div>
-        <div><img src="img/bike.png" alt="logo" width="100" /></div>
       </div>
+
+      <div class="field is-horizontal">
+        <div class="field-body">
+          <div class="field">
+            <div class="control has-icons-left has-icons-right">
+              <input
+                class="input is-info"
+                id="endAddressInput"
+                required
+                type="text"
+                placeholder="Enter end address"
+              />
+              <span class="icon is-small is-left">
+                <i class="fas fa-flag-checkered"></i>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content has-text-centered">
+        <button class="button is-primary is-light is-medium" id="searchButton">
+          Search
+        </button>
+      </div>
+      <div id="consoleOutput"></div>
     </div>
-  </section>
--->
-  <div class="container">
-    <div id="map" style="height: 400px;"></div>
-    <form action="" id="join-us">
-      <div class="fields">
-        <span> <input type="text" required list="station-list" id="startAddressInput"
-            placeholder="Enter start address" />
-        </span>
-        <br />
-        <span><input type="text" required list="station-list" id="endAddressInput" placeholder="Enter end address" />
-        </span>
+
+    <footer class="footer">
+      <div class="content has-text-right">
+        <img src="img/made-with-bulma.png" alt="Made with Bulma" width="144px">
       </div>
-    </form>
-    <br>
-    <input id="searchButton" type="button" value="Search"></input>
-    <br><br>
+    </footer>
+    <!--
+  <form action="" id="join-us">
+    <div class="fields">
+      <span>
+        <input type="text" required list="station-list" id="startAddressInput" placeholder="Enter start address" />
+      </span>
+      <br />
+      <span>
+        <input type="text" required list="station-list" id="endAddressInput" placeholder="Enter end address" />
+      </span>
+    </div>
+  </form>
+  <br>
+  <input id="searchButton" type="button" value="Search"></input>
+  <br><br>
   <div id="consoleOutput"></div>
-  </div>
+-->
+    <script>
+      // Initialize map
+      var map = L.map("map").setView([40.7128, -74.006], 15);
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        attribution:
+          '&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
+        maxZoom: 18,
+        minZoom: 12,
+      }).addTo(map);
+      L.Icon.Default.imagePath = "img/transparent.png";
 
+      // Set map bounds to New York City
+      var southWest = L.latLng(40.477399, -74.25909);
+      var northEast = L.latLng(40.917577, -73.700272);
+      var bounds = L.latLngBounds(southWest, northEast);
+      map.setMaxBounds(bounds);
 
-  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-  <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
-  <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
+      // Add tile layer to the map
+      L.tileLayer(
+        "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+        {}
+      ).addTo(map);
 
-  <script>
-    // Initialize map
-    var map = L.map('map').setView([40.7128, -74.0060], 15);
-    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-      attribution:
-        '&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
-      maxZoom: 18,
-      minZoom: 12,
-    }).addTo(map);
-    L.Icon.Default.imagePath = 'img/transparent.png';
+      // Create geocoder with bounds
+      var geocoder = L.Control.Geocoder.nominatim({
+        geocodingQueryParams: {
+          viewbox: bounds.toBBoxString(),
+          bounded: 1,
+          countrycodes: "US",
+        },
+      });
 
-    // Set map bounds to New York City
-    var southWest = L.latLng(40.477399, -74.259090);
-    var northEast = L.latLng(40.917577, -73.700272);
-    var bounds = L.latLngBounds(southWest, northEast);
-    map.setMaxBounds(bounds);
+      var userMarkers = [];
+      var routingControl = null;
 
-    // Add tile layer to the map
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    }).addTo(map);
-
-    // Create geocoder with bounds
-    var geocoder = L.Control.Geocoder.nominatim({
-      geocodingQueryParams: {
-        viewbox: bounds.toBBoxString(),
-        bounded: 1,
-        countrycodes: 'US'
-      }
-    });
-
-    var userMarkers = [];
-    var routingControl = null;
-
-    // Function to show error message
-    function showErrorMessage(message) {
-      var errorContainer = document.getElementById("consoleOutput");
-      errorContainer.innerHTML += `<p style="color: white;" font-family:"droid serif";>Attenzione! ${message}</p>`;
-    }
-
-    // Search function
-    function searchAddresses() {
-      // Remove previous routing
-      if (routingControl !== null) {
-        map.removeControl(routingControl);
+      // Function to show error message
+      function showErrorMessage(message) {
+        var errorContainer = document.getElementById("consoleOutput");
+        errorContainer.innerHTML += `<p style="color: white;" font-family:"droid serif";>Attenzione! ${message}</p>`;
       }
 
-      // Remove previous user markers
-      userMarkers.forEach(marker => map.removeLayer(marker));
-      userMarkers = [];
+      // Search function
+      function searchAddresses() {
+        // Remove previous routing
+        if (routingControl !== null) {
+          map.removeControl(routingControl);
+        }
 
-      const startAddress = document.getElementById("startAddressInput").value.trim();
-      const endAddress = document.getElementById("endAddressInput").value.trim();
-      if (startAddress && endAddress) {
-        // Geocode the start address
-        geocoder.geocode(startAddress, (startResults) => {
-          if (startResults && startResults.length > 0) {
-            const startLatLng = startResults[0].center;
-            // Add start marker and color it red
-            const startMarker = L.marker(startLatLng, { icon: blueIcon, draggable: true }).addTo(map);
-            startMarker.bindPopup(`<b>Start Address:</b><br>${startAddress}`);
-            startMarker.dragging.disable(); // Disable marker dragging
-            userMarkers.push(startMarker);
+        // Remove previous user markers
+        userMarkers.forEach((marker) => map.removeLayer(marker));
+        userMarkers = [];
 
-            // Geocode the end address
-            geocoder.geocode(endAddress, (endResults) => {
-              if (endResults && endResults.length > 0) {
-                const endLatLng = endResults[0].center;
-                // Add end marker and color it green
-                const endMarker = L.marker(endLatLng, { icon: greenIcon, draggable: true }).addTo(map);
-                endMarker.bindPopup(`<b>End Address:</b><br>${endAddress}`);
-                endMarker.dragging.disable(); // Disable marker dragging
-                userMarkers.push(endMarker);
+        const startAddress = document
+          .getElementById("startAddressInput")
+          .value.trim();
+        const endAddress = document
+          .getElementById("endAddressInput")
+          .value.trim();
+        if (startAddress && endAddress) {
+          // Geocode the start address
+          geocoder.geocode(startAddress, (startResults) => {
+            if (startResults && startResults.length > 0) {
+              const startLatLng = startResults[0].center;
+              // Add start marker and color it red
+              const startMarker = L.marker(startLatLng, {
+                icon: blueIcon,
+                draggable: true,
+              }).addTo(map);
+              startMarker.bindPopup(`<b>Start Address:</b><br>${startAddress}`);
+              startMarker.dragging.disable(); // Disable marker dragging
+              userMarkers.push(startMarker);
 
-                // Fit map bounds to show both markers
-                const bounds = L.latLngBounds([startLatLng, endLatLng]);
-                map.fitBounds(bounds);
+              // Geocode the end address
+              geocoder.geocode(endAddress, (endResults) => {
+                if (endResults && endResults.length > 0) {
+                  const endLatLng = endResults[0].center;
+                  // Add end marker and color it green
+                  const endMarker = L.marker(endLatLng, {
+                    icon: greenIcon,
+                    draggable: true,
+                  }).addTo(map);
+                  endMarker.bindPopup(`<b>End Address:</b><br>${endAddress}`);
+                  endMarker.dragging.disable(); // Disable marker dragging
+                  userMarkers.push(endMarker);
 
-                // Add routing control
-                routingControl = L.Routing.control({
-                  waypoints: [
-                    L.latLng(startLatLng),
-                    L.latLng(endLatLng)
-                  ],
-                  routeWhileDragging: true,
-                  draggableWaypoints: false, // Disable dragging of waypoints
-                  addWaypoints: false, // Disable adding new waypoints by clicking the map
-                  geocoder: geocoder,
-                  router: L.Routing.osrmv1({
-                    serviceUrl: 'https://routing.openstreetmap.de/routed-foot/route/v1',
-                    profile: 'foot'
-                  }),
-                  lineOptions: {
-                    styles: [{ color: 'green', opacity: 1, weight: 2.5 }]
-                  }
-                }).addTo(map);
-              } else {
-                showErrorMessage(`Indirizzo non trovato: ${endAddress}`);
-              }
-            });
-          } else {
-            showErrorMessage(`Indirizzo non trovato: ${startAddress}`);
-          }
-        });
+                  // Fit map bounds to show both markers
+                  const bounds = L.latLngBounds([startLatLng, endLatLng]);
+                  map.fitBounds(bounds);
 
+                  // Add routing control
+                  routingControl = L.Routing.control({
+                    waypoints: [L.latLng(startLatLng), L.latLng(endLatLng)],
+                    routeWhileDragging: true,
+                    draggableWaypoints: false, // Disable dragging of waypoints
+                    addWaypoints: false, // Disable adding new waypoints by clicking the map
+                    geocoder: geocoder,
+                    router: L.Routing.osrmv1({
+                      serviceUrl:
+                        "https://routing.openstreetmap.de/routed-foot/route/v1",
+                      profile: "foot",
+                    }),
+                    lineOptions: {
+                      styles: [{ color: "green", opacity: 1, weight: 2.5 }],
+                    },
+                  }).addTo(map);
+                } else {
+                  showErrorMessage(`Indirizzo non trovato: ${endAddress}`);
+                }
+              });
+            } else {
+              showErrorMessage(`Indirizzo non trovato: ${startAddress}`);
+            }
+          });
+        }
       }
-    }
 
-    // Event listener for search button click
-    document.getElementById("searchButton").addEventListener("click", searchAddresses);
+      // Event listener for search button click
+      document
+        .getElementById("searchButton")
+        .addEventListener("click", searchAddresses);
 
-    // Event listener for pressing Enter key
-    document.addEventListener("keydown", function (event) {
-      if (event.key === "Enter") {
-        searchAddresses();
-      }
-    });
+      // Event listener for pressing Enter key
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Enter") {
+          searchAddresses();
+        }
+      });
 
-    var blueIcon = L.icon({
-      iconUrl: "img/userpos.png",
-      iconSize: [55, 55],
-      iconAnchor: [29, 49],
-    });
+      var blueIcon = L.icon({
+        iconUrl: "img/userpos.png",
+        iconSize: [55, 55],
+        iconAnchor: [29, 49],
+      });
 
-    var greenIcon = L.icon({
-      iconUrl: "img/targetpos.png",
-      iconSize: [55, 55],
-      iconAnchor: [29, 49],
-    });
-  </script>
-</body>
-
+      var greenIcon = L.icon({
+        iconUrl: "img/targetpos.png",
+        iconSize: [55, 55],
+        iconAnchor: [29, 49],
+      });
+    </script>
+  </body>
 </html>
