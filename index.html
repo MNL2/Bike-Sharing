@@ -31,20 +31,20 @@
   </head>
 
   <body>
-    <section class="hero is-small is-success">
-      <div class="hero-body">
+    <section class="hero is-small is-primary">
+      <div class="hero-head">
         <nav class="level is-mobile">
           <div class="level-left">
             <div class="level-item">
-              <div class="columns">
-                <h1 class="title is-3">&nbsp; BIKE SHARING</h1>
+              <div class="column">
+                <h1 class="title is-4">&nbsp; BIKE SHARING</h1>
                 <span class="icon-text"
                   >&nbsp;
-                  <span class="icon">
+                  <span class="icon is-medium">
                     <i class="fas fa-location-arrow"></i>
                   </span>
                   <span>
-                    <p class="subtitle">New York</p>
+                    <p class="subtitle is-4">New York</p>
                   </span>
                 </span>
               </div>
@@ -52,7 +52,7 @@
           </div>
           <div class="level-right">
             <div class="level-item">
-              <img src="img/bike.png" alt="logo" width="100" />
+              <img src="img/bike.png" alt="logo" width="100" />&nbsp;
             </div>
           </div>
         </nav>
@@ -67,7 +67,7 @@
       <div class="field is-horizontal">
         <div class="field-body">
           <div class="field">
-            <div class="control has-icons-left has-icons-right">
+            <div class="control has-icons-left">
               <input
                 class="input is-info"
                 id="startAddressInput"
@@ -76,7 +76,7 @@
                 placeholder="Enter start address"
               />
               <span class="icon is-small is-left">
-                <i class="fas fa-circle-notch"></i>
+                <i class="fas fa-play-circle"></i>
               </span>
             </div>
           </div>
@@ -86,7 +86,7 @@
       <div class="field is-horizontal">
         <div class="field-body">
           <div class="field">
-            <div class="control has-icons-left has-icons-right">
+            <div class="control has-icons-left">
               <input
                 class="input is-info"
                 id="endAddressInput"
@@ -101,36 +101,21 @@
           </div>
         </div>
       </div>
+
       <div class="content has-text-centered">
-        <button class="button is-primary is-light is-medium" id="searchButton">
+        <button class="button is-primary is-medium is-outlined" id="searchButton">
           Search
         </button>
       </div>
       <div id="consoleOutput"></div>
     </div>
 
-    <footer class="footer">
+    <div class="hero-head" style="background-color: #fafafa; padding: 12px;">
       <div class="content has-text-right">
         <img src="img/made-with-bulma.png" alt="Made with Bulma" width="144px">
       </div>
-    </footer>
-    <!--
-  <form action="" id="join-us">
-    <div class="fields">
-      <span>
-        <input type="text" required list="station-list" id="startAddressInput" placeholder="Enter start address" />
-      </span>
-      <br />
-      <span>
-        <input type="text" required list="station-list" id="endAddressInput" placeholder="Enter end address" />
-      </span>
     </div>
-  </form>
-  <br>
-  <input id="searchButton" type="button" value="Search"></input>
-  <br><br>
-  <div id="consoleOutput"></div>
--->
+
     <script>
       // Initialize map
       var map = L.map("map").setView([40.7128, -74.006], 15);
