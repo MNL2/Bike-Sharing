@@ -80,7 +80,7 @@ document.addEventListener("DOMContentLoaded", function () {
               nearestStation.longitude
             );
             const stationMarker = L.marker(stationLatLng, {
-              icon: yellowIcon,
+              icon: redIcon,
             }).addTo(map);
             stationMarker.bindPopup(
               "<b>Nearest Station:</b><br>" + nearestStation.stationName
@@ -109,7 +109,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     nearEndStation.longitude
                   );
                   const nearEndStationMarker = L.marker(nearEndStationLatLng, {
-                    icon: yellowIcon,
+                    icon: redIcon,
                   }).addTo(map);
                   nearEndStationMarker.bindPopup(
                     "<b>Nearest End Station:</b><br>" +
@@ -192,7 +192,7 @@ document.addEventListener("DOMContentLoaded", function () {
     iconAnchor: [29, 49],
   });
 
-  var yellowIcon = L.icon({
+  var redIcon = L.icon({
     iconUrl: "img/pos.png",
     iconSize: [55, 55],
     iconAnchor: [29, 49],
