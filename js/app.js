@@ -57,10 +57,39 @@ document.addEventListener("DOMContentLoaded", function () {
       .getElementById("startAddressInput")
       .value.trim();
     const endAddress = document.getElementById("endAddressInput").value.trim();
+
+    // Dichiarazione di una variabile per l'elemento che visualizza il messaggio di errore
+    let errorMessageElement = document.getElementById("error-message");
+
+    // Funzione per mostrare il messaggio di errore
+    function showErrorMessage(message) {
+      errorMessageElement.innerText = message;
+      errorMessageElement.style.display = "block"; // Mostra il messaggio di errore
+    }
+
+    // Funzione per nascondere il messaggio di errore
+    function hideErrorMessage() {
+      errorMessageElement.style.display = "none"; // Nascondi il messaggio di errore
+    }
+
+    // Funzione per rimuovere tutti i marker e il controllo di routing dalla mappa
+    function clearMap() {
+      userMarkers.forEach((marker) => {
+        marker.remove();
+      });
+      if (routingControl) {
+        routingControl.remove();
+      }
+    }
+
     if (startAddress && endAddress) {
       // Geocode the start address
       geocoder.geocode(startAddress, (startResults) => {
         if (startResults && startResults.length > 0) {
+          // Rimuovi eventuali marker e messaggi di errore precedenti
+          clearMap();
+          hideErrorMessage(); // Nascondi il messaggio di errore
+
           const startLatLng = startResults[0].center;
           // Add start marker and color it red
           const startMarker = L.marker(startLatLng, {
